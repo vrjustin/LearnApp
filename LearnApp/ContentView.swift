@@ -7,32 +7,34 @@
 
 import SwiftUI
 
+struct LightBulbView: View {
+    
+    @Binding var isOn: Bool
+    
+    var body: some View {
+        VStack {
+            Image(systemName: isOn ? "lightbulb.fill" : "lightbulb")
+                .font(.largeTitle)
+                .foregroundStyle(isOn ? .yellow : .black)
+            Button("Toggle") {
+                isOn.toggle()
+            }
+        }
+    }
+}
+
 struct ContentView: View {
     
-    @State private var search: String = ""
-    @State private var friends: [String] = ["John", "Paul", "Ringo", "Dave", "Rick"]
-    @State private var filteredFriends: [String] = []
+    @State private var isBulbOn: Bool = false
         
     var body: some View {
         VStack {
-            List(!search.isEmpty ? filteredFriends : friends, id: \.self) { friend in
-                Text(friend)
-            }
-            .listStyle(.plain)
-            .searchable(text: $search)
-            .onChange(of: search) {
-                filteredFriends = friends.filter {
-                    $0.contains(search)
-                }
-            }
-            
-            Spacer()
+            LightBulbView(isOn: $isBulbOn)
         }
         .padding()
-        .onAppear(perform: {
-            filteredFriends = friends
-        })
-        .navigationTitle("Friends")
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity)
+        .background(isBulbOn ? .black : .red)
+
     }
 }
 
