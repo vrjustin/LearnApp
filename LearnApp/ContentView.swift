@@ -9,18 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var isOn: Bool = false
-    
+    @State private var name: String = ""
+    @State private var friends: [String] = []
+        
     var body: some View {
         VStack {
-            Toggle(isOn: $isOn, label: {
-                Text(isOn ? "ON" : "OFF")
-                    .foregroundStyle(.white)
-            })
-            .fixedSize()
+            TextField("Enter Name: ", text: $name)
+                .textFieldStyle(.roundedBorder)
+                .onSubmit {
+                    friends.append(name)
+                    name = ""
+                }
+            List(friends, id: \.self) { friend in
+                Text(friend)
+            }
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(isOn ? .yellow : .black)
+        .padding()
     }
 }
 
