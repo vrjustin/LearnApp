@@ -8,22 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @State private var count: Int = 0
+    
+    @State private var isOn: Bool = false
     
     var body: some View {
         VStack {
-            Text("\(count)")
-                .font(.title)
-            Button("Increment") {
-                count += 1
-            }
-            Button("Decrement") {
-                count -= 1
-            }
-
+            Toggle(isOn: $isOn, label: {
+                Text(isOn ? "ON" : "OFF")
+                    .foregroundStyle(.white)
+            })
+            .fixedSize()
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(isOn ? .yellow : .black)
     }
 }
 
