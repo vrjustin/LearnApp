@@ -10,12 +10,12 @@ import SwiftUI
 @main
 struct LearnAppApp: App {
 
-    @StateObject private var appState = AppState()
+    @State private var appState = AppState()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(appState)
+                .environment(appState)
         }
     }
 }
